@@ -1,5 +1,5 @@
 //
-//  Document.h
+//  RECanvasView.h
 //  RegionEditor
 //
 //  Created by Rob Menke on 1/19/19.
@@ -10,7 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Document : NSDocument
+@interface RECanvasView : NSView
+
+- (void)setImage:(NSImage *)image;
 
 @end
 

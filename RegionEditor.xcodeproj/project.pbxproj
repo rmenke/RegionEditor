@@ -10,11 +10,12 @@
 		E105EAEA21F3F53100866782 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EAE921F3F53100866782 /* AppDelegate.m */; };
 		E105EAED21F3F53100866782 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EAEC21F3F53100866782 /* main.m */; };
 		E105EAF021F3F53100866782 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EAEF21F3F53100866782 /* Document.m */; };
-		E105EAF321F3F53100866782 /* Document.xib in Resources */ = {isa = PBXBuildFile; fileRef = E105EAF121F3F53100866782 /* Document.xib */; };
 		E105EAF521F3F53100866782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E105EAF421F3F53100866782 /* Assets.xcassets */; };
 		E105EAF821F3F53100866782 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E105EAF621F3F53100866782 /* MainMenu.xib */; };
 		E105EB0321F3F53100866782 /* RegionEditorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EB0221F3F53100866782 /* RegionEditorTests.m */; };
 		E105EB0E21F3F53100866782 /* RegionEditorUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EB0D21F3F53100866782 /* RegionEditorUITests.m */; };
+		E105EB1D21F3FF0900866782 /* NSDictionary+REGeometryExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EB1C21F3FF0900866782 /* NSDictionary+REGeometryExtension.m */; };
+		E105EB2021F41BAC00866782 /* RECanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EB1F21F41BAB00866782 /* RECanvasView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,7 +42,6 @@
 		E105EAEC21F3F53100866782 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E105EAEE21F3F53100866782 /* Document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
 		E105EAEF21F3F53100866782 /* Document.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
-		E105EAF221F3F53100866782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/Document.xib; sourceTree = "<group>"; };
 		E105EAF421F3F53100866782 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E105EAF721F3F53100866782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E105EAF921F3F53100866782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,6 +51,10 @@
 		E105EB0921F3F53100866782 /* Region Editor UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Region Editor UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E105EB0D21F3F53100866782 /* RegionEditorUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegionEditorUITests.m; sourceTree = "<group>"; };
 		E105EB0F21F3F53100866782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E105EB1B21F3FF0900866782 /* NSDictionary+REGeometryExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+REGeometryExtension.h"; sourceTree = "<group>"; };
+		E105EB1C21F3FF0900866782 /* NSDictionary+REGeometryExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+REGeometryExtension.m"; sourceTree = "<group>"; };
+		E105EB1E21F41BAB00866782 /* RECanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECanvasView.h; sourceTree = "<group>"; };
+		E105EB1F21F41BAB00866782 /* RECanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECanvasView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +109,10 @@
 				E105EAE921F3F53100866782 /* AppDelegate.m */,
 				E105EAEE21F3F53100866782 /* Document.h */,
 				E105EAEF21F3F53100866782 /* Document.m */,
-				E105EAF121F3F53100866782 /* Document.xib */,
+				E105EB1E21F41BAB00866782 /* RECanvasView.h */,
+				E105EB1F21F41BAB00866782 /* RECanvasView.m */,
+				E105EB1B21F3FF0900866782 /* NSDictionary+REGeometryExtension.h */,
+				E105EB1C21F3FF0900866782 /* NSDictionary+REGeometryExtension.m */,
 				E105EAF421F3F53100866782 /* Assets.xcassets */,
 				E105EAF621F3F53100866782 /* MainMenu.xib */,
 				E105EAF921F3F53100866782 /* Info.plist */,
@@ -248,7 +255,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E105EAF521F3F53100866782 /* Assets.xcassets in Resources */,
-				E105EAF321F3F53100866782 /* Document.xib in Resources */,
 				E105EAF821F3F53100866782 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,9 +280,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E105EB2021F41BAC00866782 /* RECanvasView.m in Sources */,
 				E105EAF021F3F53100866782 /* Document.m in Sources */,
 				E105EAED21F3F53100866782 /* main.m in Sources */,
 				E105EAEA21F3F53100866782 /* AppDelegate.m in Sources */,
+				E105EB1D21F3FF0900866782 /* NSDictionary+REGeometryExtension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,14 +320,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E105EAF121F3F53100866782 /* Document.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E105EAF221F3F53100866782 /* Base */,
-			);
-			name = Document.xib;
-			sourceTree = "<group>";
-		};
 		E105EAF621F3F53100866782 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
