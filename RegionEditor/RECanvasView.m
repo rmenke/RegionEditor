@@ -7,6 +7,7 @@
 //
 
 #import "RECanvasView.h"
+#import "RERegionView.h"
 #import "NSDictionary+REGeometryExtension.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -31,24 +32,30 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<NSDictionary *> *)regions {
     NSMutableArray<NSDictionary *> *regions = [NSMutableArray array];
 
-    for (CALayer *layer in self.layer.sublayers) {
-        [regions addObject:[NSDictionary dictionaryWithRect:layer.frame]];
+    for (NSView *subview in self.subviews) {
+        [regions addObject:[NSDictionary dictionaryWithRect:subview.frame]];
     }
 
     return regions;
 }
 
 - (void)setRegions:(NSArray<NSDictionary *> *)regions {
-    NSMutableArray<CALayer *> *sublayers = [NSMutableArray array];
-    for (NSDictionary *region in regions) {
-        CALayer *layer = [[CALayer alloc] init];
-        layer.borderColor = NSColor.redColor.CGColor;
-        layer.borderWidth = 1.0;
-        layer.frame = region.rectValue;
+    NSMutableArray<__kindof NSView *> *subviews = [NSMutableArray arrayWithCapacity:regions.count];
 
-        [sublayers addObject:layer];
+    for (NSDictionary *region in regions) {
+        RERegionView *regionView = [[RERegionView alloc] initWithFrame:region.rectValue];
+        [subviews addObject:regionView];
     }
-    self.layer.sublayers = sublayers;
+
+    if (subviews.count) {
+        for (NSUInteger index = 1; index < subviews.count; ++index) {
+            subviews[index - 1].nextKeyView = subviews[index];
+        }
+        subviews.lastObject.nextKeyView = subviews.firstObject;
+        self.window.initialFirstResponder = subviews.firstObject;
+    }
+
+    self.subviews = subviews;
 }
 
 @end

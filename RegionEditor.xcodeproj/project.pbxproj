@@ -16,6 +16,7 @@
 		E105EB0E21F3F53100866782 /* RegionEditorUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EB0D21F3F53100866782 /* RegionEditorUITests.m */; };
 		E105EB1D21F3FF0900866782 /* NSDictionary+REGeometryExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EB1C21F3FF0900866782 /* NSDictionary+REGeometryExtension.m */; };
 		E105EB2021F41BAC00866782 /* RECanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EB1F21F41BAB00866782 /* RECanvasView.m */; };
+		E11E59AD21F84E740072391C /* RERegionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E11E59AC21F84E740072391C /* RERegionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,8 @@
 		E105EB1C21F3FF0900866782 /* NSDictionary+REGeometryExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+REGeometryExtension.m"; sourceTree = "<group>"; };
 		E105EB1E21F41BAB00866782 /* RECanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECanvasView.h; sourceTree = "<group>"; };
 		E105EB1F21F41BAB00866782 /* RECanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECanvasView.m; sourceTree = "<group>"; };
+		E11E59AB21F84E740072391C /* RERegionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RERegionView.h; sourceTree = "<group>"; };
+		E11E59AC21F84E740072391C /* RERegionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RERegionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +114,8 @@
 				E105EAEF21F3F53100866782 /* Document.m */,
 				E105EB1E21F41BAB00866782 /* RECanvasView.h */,
 				E105EB1F21F41BAB00866782 /* RECanvasView.m */,
+				E11E59AB21F84E740072391C /* RERegionView.h */,
+				E11E59AC21F84E740072391C /* RERegionView.m */,
 				E105EB1B21F3FF0900866782 /* NSDictionary+REGeometryExtension.h */,
 				E105EB1C21F3FF0900866782 /* NSDictionary+REGeometryExtension.m */,
 				E105EAF421F3F53100866782 /* Assets.xcassets */,
@@ -285,6 +290,7 @@
 				E105EAED21F3F53100866782 /* main.m in Sources */,
 				E105EAEA21F3F53100866782 /* AppDelegate.m in Sources */,
 				E105EB1D21F3FF0900866782 /* NSDictionary+REGeometryExtension.m in Sources */,
+				E11E59AD21F84E740072391C /* RERegionView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +517,7 @@
 				E105EB1421F3F53100866782 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E105EB1521F3F53100866782 /* Build configuration list for PBXNativeTarget "Region Editor Tests" */ = {
 			isa = XCConfigurationList;
@@ -519,6 +526,7 @@
 				E105EB1721F3F53100866782 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E105EB1821F3F53100866782 /* Build configuration list for PBXNativeTarget "Region Editor UI Tests" */ = {
 			isa = XCConfigurationList;
@@ -527,6 +535,7 @@
 				E105EB1A21F3F53100866782 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
