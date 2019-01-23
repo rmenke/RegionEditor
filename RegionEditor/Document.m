@@ -50,6 +50,8 @@ static NSPoint topLeft;
     canvasView.image = _image;
     canvasView.autoresizingMask = NSViewNotSizable;
 
+    [canvasView bind:@"regions" toObject:self withKeyPath:@"regions" options:nil];
+
     NSScrollView *scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(0, 0, imageSize.width, imageSize.height)];
     scrollView.documentView = canvasView;
     scrollView.hasVerticalScroller = YES;

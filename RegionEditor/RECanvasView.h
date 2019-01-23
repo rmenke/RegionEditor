@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RECanvasView : NSView
 
+@property (nonatomic, nonnull) NSArray<NSDictionary<NSString *, NSNumber *> *> *regions;
+
 - (void)setImage:(NSImage *)image;
 
 @end
