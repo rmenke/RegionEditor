@@ -7,12 +7,13 @@
 //
 
 @import Cocoa;
+@class RERegion;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface RECanvasView : NSView
 
-@property (nonatomic, nonnull) NSArray<NSDictionary<NSString *, NSNumber *> *> *regions;
+@property (nonatomic, nonnull, copy) NSArray<RERegion *> *regions;
 
 - (void)setImage:(NSImage *)image;
 

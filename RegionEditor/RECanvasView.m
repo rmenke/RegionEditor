@@ -6,9 +6,9 @@
 //  Copyright © 2019 Rob Menke. All rights reserved.
 //
 
+#import "RERegion.h"
 #import "RECanvasView.h"
 #import "RERegionView.h"
-#import "NSDictionary+REGeometryExtension.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -29,20 +29,20 @@ NS_ASSUME_NONNULL_BEGIN
     self.layer.contents = [image layerContentsForContentsScale:scale];
 }
 
-- (NSArray<NSDictionary *> *)regions {
-    NSMutableArray<NSDictionary *> *regions = [NSMutableArray array];
+- (NSArray<RERegion *> *)regions {
+    NSMutableArray<RERegion *> *regions = [NSMutableArray array];
 
     for (NSView *subview in self.subviews) {
-        [regions addObject:[NSDictionary dictionaryWithRect:subview.frame]];
+        [regions addObject:[[RERegion alloc] initWithRect:subview.frame]];
     }
 
     return regions;
 }
 
-- (void)setRegions:(NSArray<NSDictionary *> *)regions {
+- (void)setRegions:(NSArray<RERegion *> *)regions {
     NSMutableArray<__kindof NSView *> *subviews = [NSMutableArray arrayWithCapacity:regions.count];
 
-    for (NSDictionary *region in regions) {
+    for (RERegion *region in regions) {
         RERegionView *regionView = [[RERegionView alloc] initWithFrame:region.rectValue];
         [subviews addObject:regionView];
     }

@@ -7,8 +7,8 @@
 //
 
 #import "Document.h"
+#import "RERegion.h"
 #import "RECanvasView.h"
-#import "NSDictionary+REGeometryExtension.h"
 
 @import Darwin.POSIX.sys.xattr;
 
@@ -21,7 +21,7 @@ static NSPoint topLeft;
 @interface Document ()
 
 @property (nonatomic) NSImage *image;
-@property (nonatomic, nonnull) NSMutableArray<NSMutableDictionary *> *regions;
+@property (nonatomic, nonnull) NSMutableArray<RERegion *> *regions;
 
 @end
 
@@ -115,18 +115,13 @@ static NSPoint topLeft;
         if (!propertyList) return NO;
 
         @try {
-            NSInteger index = 0;
-
             for (NSArray<NSNumber *> *region in propertyList) {
                 CGFloat x = region[0].doubleValue;
                 CGFloat y = region[1].doubleValue;
                 CGFloat w = region[2].doubleValue;
                 CGFloat h = region[3].doubleValue;
 
-                NSMutableDictionary<NSString *, NSNumber *> *region = [NSMutableDictionary dictionaryWithRect:NSMakeRect(x, y, w, h)];
-                region[@"index"] = @(index++);
-
-                [_regions addObject:region];
+                [_regions addObject:[[RERegion alloc] initWithRect:NSMakeRect(x, y, w, h)]];
             }
         } @catch (NSException *exception) {
             if (error) *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:exception.userInfo];
@@ -147,7 +142,7 @@ static NSPoint topLeft;
 
     NSMutableArray<NSArray<NSNumber *> *> *propertyList = [NSMutableArray arrayWithCapacity:_regions.count];
 
-    for (NSDictionary *region in _regions) {
+    for (RERegion *region in _regions) {
         NSRect rect = region.rectValue;
         [propertyList addObject:@[@(NSMinX(rect)), @(NSMinY(rect)), @(NSWidth(rect)), @(NSHeight(rect))]];
     }
