@@ -58,6 +58,22 @@ NS_ASSUME_NONNULL_BEGIN
     self.subviews = subviews;
 }
 
+- (NSIndexSet *)selectionIndexes {
+    id responder = self.window.firstResponder;
+    NSUInteger index = [self.subviews indexOfObjectIdenticalTo:responder];
+    return index != NSNotFound ? [NSIndexSet indexSetWithIndex:index] : [NSIndexSet indexSet];
+}
+
+- (void)setSelectionIndexes:(NSIndexSet *)selectionIndexes {
+    NSUInteger index = selectionIndexes.firstIndex;
+    id responder = index != NSNotFound ? self.subviews[index] : nil;
+    [self.window makeFirstResponder:responder];
+}
+
++ (NSSet *)keyPathsForValuesAffectingSelectionIndexes {
+    return [NSSet setWithObject:@"window.firstResponder"];
+}
+
 @end
 
 NS_ASSUME_NONNULL_END
