@@ -6,10 +6,9 @@
 //  Copyright © 2019 Rob Menke. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+@import Cocoa;
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
-
 
 @end
 
