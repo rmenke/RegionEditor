@@ -9,7 +9,20 @@
 #import "RECanvasView.h"
 #import "RERegionView.h"
 
+@import QuartzCore;
+
 NS_ASSUME_NONNULL_BEGIN
+
+static inline CGPoint CGPointMakeFromLocation(NSView *view, NSEvent *event) {
+    NSPoint p = [view convertPoint:event.locationInWindow fromView:nil];
+    return CGPointMake(round(p.x), round(p.y));
+}
+
+@interface RECanvasView ()
+
+@property (nonatomic, readonly) NSRect rectValue;
+
+@end
 
 @implementation RECanvasView
 
@@ -20,6 +33,10 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)isFlipped {
+    return YES;
+}
+
+- (BOOL)isOpaque {
     return YES;
 }
 
@@ -83,6 +100,49 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSSet *)keyPathsForValuesAffectingSelectionIndexes {
     return [NSSet setWithObject:@"window.firstResponder"];
+}
+
+- (void)mouseDown:(NSEvent *)event {
+    CGRect r = { .origin = CGPointMakeFromLocation(self, event), .size = CGSizeZero };
+
+    CAShapeLayer *layer = [CAShapeLayer layer];
+    layer.lineDashPattern = @[@5, @5];
+    layer.fillColor = nil;
+    layer.strokeColor = NSColor.redColor.CGColor;
+
+    [self.layer addSublayer:layer];
+
+    CABasicAnimation *animation = [CABasicAnimation animation];
+    animation.repeatCount = INFINITY;
+    animation.fromValue = @0;
+    animation.toValue = @10;
+
+    [layer addAnimation:animation forKey:@"lineDashPhase"];
+
+    do {
+        event = [self.window nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask];
+        CGPoint b = CGPointMakeFromLocation(self, event);
+
+        r.size = CGSizeMake(b.x - r.origin.x, b.y - r.origin.y);
+
+        if (event.type == NSEventTypeLeftMouseDragged) {
+            CGPathRef path = CGPathCreateWithRect(r, NULL);
+            layer.path = path;
+            CGPathRelease(path);
+        }
+        else if (event.type == NSEventTypeLeftMouseUp) {
+            r = CGRectStandardize(r);
+
+            if (r.size.width >= 50 && r.size.height >= 50) {
+                _rectValue = NSRectFromCGRect(CGRectStandardize(r));
+                [NSApp sendAction:@selector(add:) to:nil from:self];
+            }
+            break;
+        }
+    } while (true);
+
+    [layer removeAllAnimations];
+    [layer removeFromSuperlayer];
 }
 
 @end

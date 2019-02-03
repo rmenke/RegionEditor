@@ -221,6 +221,10 @@ static NSPoint topLeft;
     [self resizeRegionAtIndex:_arrayController.selectionIndex toValue:[sender valueForKey:@"frame"]];
 }
 
+- (IBAction)add:(id)sender {
+    [self insertRegion:[sender valueForKey:@"rectValue"] atIndex:[_arrayController.arrangedObjects count]];
+}
+
 - (IBAction)delete:(id)sender {
     [self deleteRegionAtIndex:_arrayController.selectionIndex];
 }
