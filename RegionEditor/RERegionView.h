@@ -10,4 +10,6 @@
 
 @interface RERegionView : NSView
 
+@property (nonatomic) NSInteger integerValue;
+
 @end
