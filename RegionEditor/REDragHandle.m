@@ -14,6 +14,31 @@ NS_ASSUME_NONNULL_BEGIN
 #define REDragX (REDragMinX | REDragMaxX)
 #define REDragY (REDragMinY | REDragMaxY)
 
+@interface NSCursor ()
+
+// TODO: Avoid using a private API; create custom resize cursors.
+
+@property (nonatomic, readonly, class) NSCursor *_windowResizeEastCursor;
+@property (nonatomic, readonly, class) NSCursor *_windowResizeEastWestCursor;
+@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthCursor;
+@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthEastCursor;
+@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthEastSouthWestCursor;
+@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthSouthCursor;
+@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthWestCursor;
+@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthWestSouthEastCursor;
+@property (nonatomic, readonly, class) NSCursor *_windowResizeSouthCursor;
+@property (nonatomic, readonly, class) NSCursor *_windowResizeSouthEastCursor;
+@property (nonatomic, readonly, class) NSCursor *_windowResizeSouthWestCursor;
+@property (nonatomic, readonly, class) NSCursor *_windowResizeWestCursor;
+
+@end
+
+@interface REDragHandle ()
+
+@property (nonatomic, nullable) NSCursor *cursor;
+
+@end
+
 @implementation REDragHandle {
     NSRect originalFrame;
 }
@@ -27,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (void)cursorUpdate:(NSEvent *)event {
-    [[NSCursor crosshairCursor] set];
+    if (_cursor) [_cursor set];
 }
 
 - (void)mouseDown:(NSEvent *)event {
@@ -66,6 +91,36 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)mouseUp:(NSEvent *)event {
     [NSApp sendAction:NSSelectorFromString(@"resize:") to:nil from:self.superview];
+}
+
+- (void)setDragAction:(REDragAction)dragAction {
+    _dragAction = dragAction;
+
+    if (dragAction & REDragMinX) {
+        if (dragAction & REDragMinY) {
+            _cursor = NSCursor._windowResizeNorthWestSouthEastCursor;
+        }
+        else if (dragAction & REDragMaxY) {
+            _cursor = NSCursor._windowResizeNorthEastSouthWestCursor;
+        }
+        else {
+            _cursor = NSCursor._windowResizeEastWestCursor;
+        }
+    }
+    else if (dragAction & REDragMaxX) {
+        if (dragAction & REDragMinY) {
+            _cursor = NSCursor._windowResizeNorthEastSouthWestCursor;
+        }
+        else if (dragAction & REDragMaxY) {
+            _cursor = NSCursor._windowResizeNorthWestSouthEastCursor;
+        }
+        else {
+            _cursor = NSCursor._windowResizeEastWestCursor;
+        }
+    }
+    else if (dragAction) {
+        _cursor = NSCursor._windowResizeNorthSouthCursor;
+    }
 }
 
 @end

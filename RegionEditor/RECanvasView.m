@@ -58,7 +58,7 @@ static inline CGPoint CGPointMakeFromLocation(NSView *view, NSEvent *event) {
 - (void)setRegions:(NSArray<NSValue *> *)regions {
     const NSUInteger count = regions.count;
 
-    NSMutableArray<__kindof NSView *> *subviews = self.subviews.mutableCopy;
+    NSMutableArray<RERegionView *> *subviews = self.subviews.mutableCopy;
 
     while (subviews.count < count) {
         [subviews addObject:[[RERegionView alloc] initWithFrame:NSZeroRect]];
@@ -68,7 +68,7 @@ static inline CGPoint CGPointMakeFromLocation(NSView *view, NSEvent *event) {
     }
 
     for (NSUInteger index = 0; index < count; ++index) {
-        [subviews[index] setIntegerValue:(index + 1)];
+        subviews[index].integerValue = index + 1;
         subviews[index].frame = regions[index].rectValue;
     }
 

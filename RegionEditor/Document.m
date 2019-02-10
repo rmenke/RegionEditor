@@ -64,6 +64,7 @@ static NSPoint topLeft;
     scrollView.horizontalScrollElasticity = NSScrollElasticityNone;
     scrollView.borderType = NSNoBorder;
     scrollView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    scrollView.translatesAutoresizingMaskIntoConstraints = YES;
 
     NSWindowStyleMask windowStyle =
         NSWindowStyleMaskTitled |
@@ -78,9 +79,7 @@ static NSPoint topLeft;
 
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSScreen *screen = NSScreen.mainScreen;
-
-        NSSize screenSize = screen.visibleFrame.size;
+        NSSize screenSize = NSScreen.mainScreen.visibleFrame.size;
 
         topLeft.x = 10;
         topLeft.y = screenSize.height - 10.0;

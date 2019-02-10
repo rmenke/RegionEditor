@@ -11,6 +11,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+const CGFloat SIZE = 10.0;
+
 @interface RERegionView ()
 
 @property (nonatomic, nonnull) NSTextField *label;
@@ -29,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
         self.layer.borderWidth = 1.0;
 
         self.label = [[NSTextField alloc] initWithFrame:NSZeroRect];
-        self.label.autoresizingMask = NSViewMaxXMargin|NSViewMaxYMargin;
+        self.label.translatesAutoresizingMaskIntoConstraints = NO;
         self.label.editable = NO;
         self.label.bordered = NO;
         self.label.textColor = NSColor.whiteColor;
@@ -37,38 +39,56 @@ NS_ASSUME_NONNULL_BEGIN
         self.label.font = [NSFont boldSystemFontOfSize:0];
 
         [self addSubview:self.label];
+        [self.label.topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+        [self.label.leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
 
         for (int i = 0; i < 8; ++i) {
             dragHandle[i] = [[REDragHandle alloc] initWithFrame:NSZeroRect];
             dragHandle[i].hidden = YES;
             dragHandle[i].translatesAutoresizingMaskIntoConstraints = NO;
 
-            [dragHandle[i].widthAnchor constraintEqualToConstant:10.0].active = YES;
-            [dragHandle[i].heightAnchor constraintEqualToConstant:10.0].active = YES;
-
             [self addSubview:dragHandle[i]];
         }
 
-        [dragHandle[7].topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
         [dragHandle[0].topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
-        [dragHandle[1].topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+        [dragHandle[0].leftAnchor constraintEqualToAnchor:self.leftAnchor constant:SIZE].active = YES;
+        [dragHandle[0].rightAnchor constraintEqualToAnchor:self.rightAnchor constant:-SIZE].active = YES;
+        [dragHandle[0].heightAnchor constraintEqualToConstant:SIZE].active = YES;
 
+        [dragHandle[1].topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
         [dragHandle[1].rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+        [dragHandle[1].widthAnchor constraintEqualToConstant:SIZE].active = YES;
+        [dragHandle[1].heightAnchor constraintEqualToConstant:SIZE].active = YES;
+
+        [dragHandle[2].topAnchor constraintEqualToAnchor:self.topAnchor constant:SIZE].active = YES;
+        [dragHandle[2].bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-SIZE].active = YES;
         [dragHandle[2].rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
-        [dragHandle[3].rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+        [dragHandle[2].widthAnchor constraintEqualToConstant:SIZE].active = YES;
 
         [dragHandle[3].bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+        [dragHandle[3].rightAnchor constraintEqualToAnchor:self.rightAnchor].active = YES;
+        [dragHandle[3].widthAnchor constraintEqualToConstant:SIZE].active = YES;
+        [dragHandle[3].heightAnchor constraintEqualToConstant:SIZE].active = YES;
+
         [dragHandle[4].bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
+        [dragHandle[4].leftAnchor constraintEqualToAnchor:self.leftAnchor constant:SIZE].active = YES;
+        [dragHandle[4].rightAnchor constraintEqualToAnchor:self.rightAnchor constant:-SIZE].active = YES;
+        [dragHandle[4].heightAnchor constraintEqualToConstant:SIZE].active = YES;
+
         [dragHandle[5].bottomAnchor constraintEqualToAnchor:self.bottomAnchor].active = YES;
-
         [dragHandle[5].leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
-        [dragHandle[6].leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
-        [dragHandle[7].leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+        [dragHandle[5].widthAnchor constraintEqualToConstant:SIZE].active = YES;
+        [dragHandle[5].heightAnchor constraintEqualToConstant:SIZE].active = YES;
 
-        [dragHandle[0].centerXAnchor constraintEqualToAnchor:self.centerXAnchor].active = YES;
-        [dragHandle[2].centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
-        [dragHandle[4].centerXAnchor constraintEqualToAnchor:self.centerXAnchor].active = YES;
-        [dragHandle[6].centerYAnchor constraintEqualToAnchor:self.centerYAnchor].active = YES;
+        [dragHandle[6].topAnchor constraintEqualToAnchor:self.topAnchor constant:SIZE].active = YES;
+        [dragHandle[6].bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:-SIZE].active = YES;
+        [dragHandle[6].leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+        [dragHandle[6].widthAnchor constraintEqualToConstant:SIZE].active = YES;
+
+        [dragHandle[7].topAnchor constraintEqualToAnchor:self.topAnchor].active = YES;
+        [dragHandle[7].leftAnchor constraintEqualToAnchor:self.leftAnchor].active = YES;
+        [dragHandle[7].widthAnchor constraintEqualToConstant:SIZE].active = YES;
+        [dragHandle[7].heightAnchor constraintEqualToConstant:SIZE].active = YES;
 
         dragHandle[0].dragAction = REDragMinY;
         dragHandle[1].dragAction = REDragMaxX | REDragMinY;
