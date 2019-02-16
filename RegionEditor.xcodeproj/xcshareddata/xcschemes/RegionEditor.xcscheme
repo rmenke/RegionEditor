@@ -38,16 +38,6 @@
                ReferencedContainer = "container:RegionEditor.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E105EB0821F3F53100866782"
-               BuildableName = "Region Editor UI Tests.xctest"
-               BlueprintName = "Region Editor UI Tests"
-               ReferencedContainer = "container:RegionEditor.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

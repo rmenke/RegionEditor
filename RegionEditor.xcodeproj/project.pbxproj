@@ -13,7 +13,6 @@
 		E105EAF521F3F53100866782 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E105EAF421F3F53100866782 /* Assets.xcassets */; };
 		E105EAF821F3F53100866782 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E105EAF621F3F53100866782 /* MainMenu.xib */; };
 		E105EB0321F3F53100866782 /* RegionEditorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EB0221F3F53100866782 /* RegionEditorTests.m */; };
-		E105EB0E21F3F53100866782 /* RegionEditorUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EB0D21F3F53100866782 /* RegionEditorUITests.m */; };
 		E105EB2021F41BAC00866782 /* RECanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EB1F21F41BAB00866782 /* RECanvasView.m */; };
 		E11E59AD21F84E740072391C /* RERegionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E11E59AC21F84E740072391C /* RERegionView.m */; };
 		E1F21A7721FE6308007AB058 /* REDragHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F21A7621FE6308007AB058 /* REDragHandle.m */; };
@@ -21,13 +20,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		E105EAFF21F3F53100866782 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E105EADD21F3F53000866782 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E105EAE421F3F53000866782;
-			remoteInfo = RegionEditor;
-		};
-		E105EB0A21F3F53100866782 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E105EADD21F3F53000866782 /* Project object */;
 			proxyType = 1;
@@ -49,9 +41,6 @@
 		E105EAFE21F3F53100866782 /* Region Editor Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Region Editor Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E105EB0221F3F53100866782 /* RegionEditorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegionEditorTests.m; sourceTree = "<group>"; };
 		E105EB0421F3F53100866782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E105EB0921F3F53100866782 /* Region Editor UI Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Region Editor UI Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E105EB0D21F3F53100866782 /* RegionEditorUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegionEditorUITests.m; sourceTree = "<group>"; };
-		E105EB0F21F3F53100866782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E105EB1E21F41BAB00866782 /* RECanvasView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECanvasView.h; sourceTree = "<group>"; };
 		E105EB1F21F41BAB00866782 /* RECanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECanvasView.m; sourceTree = "<group>"; };
 		E11E59AB21F84E740072391C /* RERegionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RERegionView.h; sourceTree = "<group>"; };
@@ -75,13 +64,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E105EB0621F3F53100866782 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -90,7 +72,6 @@
 			children = (
 				E105EAE721F3F53100866782 /* RegionEditor */,
 				E105EB0121F3F53100866782 /* RegionEditorTests */,
-				E105EB0C21F3F53100866782 /* RegionEditorUITests */,
 				E105EAE621F3F53100866782 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,7 +81,6 @@
 			children = (
 				E105EAE521F3F53100866782 /* Region Editor.app */,
 				E105EAFE21F3F53100866782 /* Region Editor Tests.xctest */,
-				E105EB0921F3F53100866782 /* Region Editor UI Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,15 +123,6 @@
 			path = RegionEditorTests;
 			sourceTree = "<group>";
 		};
-		E105EB0C21F3F53100866782 /* RegionEditorUITests */ = {
-			isa = PBXGroup;
-			children = (
-				E105EB0D21F3F53100866782 /* RegionEditorUITests.m */,
-				E105EB0F21F3F53100866782 /* Info.plist */,
-			);
-			path = RegionEditorUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -190,24 +161,6 @@
 			productReference = E105EAFE21F3F53100866782 /* Region Editor Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		E105EB0821F3F53100866782 /* Region Editor UI Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E105EB1821F3F53100866782 /* Build configuration list for PBXNativeTarget "Region Editor UI Tests" */;
-			buildPhases = (
-				E105EB0521F3F53100866782 /* Sources */,
-				E105EB0621F3F53100866782 /* Frameworks */,
-				E105EB0721F3F53100866782 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E105EB0B21F3F53100866782 /* PBXTargetDependency */,
-			);
-			name = "Region Editor UI Tests";
-			productName = RegionEditorUITests;
-			productReference = E105EB0921F3F53100866782 /* Region Editor UI Tests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -223,11 +176,6 @@
 						ProvisioningStyle = Automatic;
 					};
 					E105EAFD21F3F53100866782 = {
-						CreatedOnToolsVersion = 8.2.1;
-						ProvisioningStyle = Automatic;
-						TestTargetID = E105EAE421F3F53000866782;
-					};
-					E105EB0821F3F53100866782 = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
 						TestTargetID = E105EAE421F3F53000866782;
@@ -249,7 +197,6 @@
 			targets = (
 				E105EAE421F3F53000866782 /* Region Editor */,
 				E105EAFD21F3F53100866782 /* Region Editor Tests */,
-				E105EB0821F3F53100866782 /* Region Editor UI Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -265,13 +212,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E105EAFC21F3F53100866782 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E105EB0721F3F53100866782 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -302,14 +242,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E105EB0521F3F53100866782 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E105EB0E21F3F53100866782 /* RegionEditorUITests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -317,11 +249,6 @@
 			isa = PBXTargetDependency;
 			target = E105EAE421F3F53000866782 /* Region Editor */;
 			targetProxy = E105EAFF21F3F53100866782 /* PBXContainerItemProxy */;
-		};
-		E105EB0B21F3F53100866782 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E105EAE421F3F53000866782 /* Region Editor */;
-			targetProxy = E105EB0A21F3F53100866782 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -474,30 +401,6 @@
 			};
 			name = Release;
 		};
-		E105EB1921F3F53100866782 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = RegionEditorUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.the-wabe.RegionEditorUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = "Region Editor";
-			};
-			name = Debug;
-		};
-		E105EB1A21F3F53100866782 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = RegionEditorUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.the-wabe.RegionEditorUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = "Region Editor";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -524,15 +427,6 @@
 			buildConfigurations = (
 				E105EB1621F3F53100866782 /* Debug */,
 				E105EB1721F3F53100866782 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E105EB1821F3F53100866782 /* Build configuration list for PBXNativeTarget "Region Editor UI Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E105EB1921F3F53100866782 /* Debug */,
-				E105EB1A21F3F53100866782 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
