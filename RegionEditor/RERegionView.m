@@ -28,6 +28,7 @@ const CGFloat SIZE = 10.0;
     if (self) {
         self.wantsLayer = YES;
         self.layer.borderColor = NSColor.redColor.CGColor;
+        self.layer.backgroundColor = [NSColor.redColor colorWithAlphaComponent:0.10].CGColor;
         self.layer.borderWidth = 1.0;
 
         self.label = [[NSTextField alloc] initWithFrame:NSZeroRect];

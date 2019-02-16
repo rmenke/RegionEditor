@@ -39,9 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@implementation REDragHandle {
-    NSRect originalFrame;
-}
+@implementation REDragHandle
 
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -55,13 +53,12 @@ NS_ASSUME_NONNULL_BEGIN
     if (_cursor) [_cursor set];
 }
 
-- (void)mouseDown:(NSEvent *)event {
-    originalFrame = self.superview.frame;
-}
-
 - (void)mouseDragged:(NSEvent *)event {
-    NSPoint p = [self.superview.superview convertPoint:event.locationInWindow fromView:nil];
-    NSRect frame = self.superview.frame;
+    NSView *regionView = self.superview;
+    NSView *canvasView = regionView.superview;
+
+    NSPoint p = [canvasView convertPoint:event.locationInWindow fromView:nil];
+    NSRect frame = regionView.frame;
 
     CGFloat minX = NSMinX(frame);
     CGFloat minY = NSMinY(frame);
@@ -86,7 +83,7 @@ NS_ASSUME_NONNULL_BEGIN
         frame.size.height = MAX(p.y - minY, 50);
     }
 
-    self.superview.frame = frame;
+    regionView.frame = NSIntersectionRect(NSIntegralRect(frame), canvasView.bounds);
 }
 
 - (void)mouseUp:(NSEvent *)event {

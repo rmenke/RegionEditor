@@ -36,10 +36,6 @@ static inline CGPoint CGPointMakeFromLocation(NSView *view, NSEvent *event) {
     return YES;
 }
 
-- (BOOL)isOpaque {
-    return YES;
-}
-
 - (void)setImage:(NSImage *)image {
     CGFloat scale = [image recommendedLayerContentsScale:0.0];
     self.layer.contents = [image layerContentsForContentsScale:scale];
@@ -106,18 +102,10 @@ static inline CGPoint CGPointMakeFromLocation(NSView *view, NSEvent *event) {
     CGRect r = { .origin = CGPointMakeFromLocation(self, event), .size = CGSizeZero };
 
     CAShapeLayer *layer = [CAShapeLayer layer];
-    layer.lineDashPattern = @[@5, @5];
-    layer.fillColor = nil;
     layer.strokeColor = NSColor.redColor.CGColor;
+    layer.fillColor = [NSColor.redColor colorWithAlphaComponent:0.10].CGColor;
 
     [self.layer addSublayer:layer];
-
-    CABasicAnimation *animation = [CABasicAnimation animation];
-    animation.repeatCount = INFINITY;
-    animation.fromValue = @0;
-    animation.toValue = @10;
-
-    [layer addAnimation:animation forKey:@"lineDashPhase"];
 
     do {
         event = [self.window nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask];
@@ -130,18 +118,15 @@ static inline CGPoint CGPointMakeFromLocation(NSView *view, NSEvent *event) {
             layer.path = path;
             CGPathRelease(path);
         }
-        else if (event.type == NSEventTypeLeftMouseUp) {
-            r = CGRectStandardize(r);
+    } while (event.type != NSEventTypeLeftMouseUp);
 
-            if (r.size.width >= 50 && r.size.height >= 50) {
-                _rectValue = NSRectFromCGRect(CGRectStandardize(r));
-                [NSApp sendAction:@selector(add:) to:nil from:self];
-            }
-            break;
-        }
-    } while (true);
+    r = CGRectIntersection(CGRectIntegral(CGRectStandardize(r)), NSRectToCGRect(self.bounds));
 
-    [layer removeAllAnimations];
+    if (r.size.width >= 50 && r.size.height >= 50) {
+        _rectValue = NSRectFromCGRect(r);
+        [NSApp sendAction:@selector(add:) to:nil from:self];
+    }
+
     [layer removeFromSuperlayer];
 }
 
