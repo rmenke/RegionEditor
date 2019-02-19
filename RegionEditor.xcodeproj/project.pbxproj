@@ -135,6 +135,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E105EB1221F3F53100866782 /* Build configuration list for PBXNativeTarget "Region Editor" */;
 			buildPhases = (
+				E1B61DB8221BFF4E00BD0856 /* Update Version Info */,
 				E105EAE121F3F53000866782 /* Sources */,
 				E105EAE221F3F53000866782 /* Frameworks */,
 				E105EAE321F3F53000866782 /* Resources */,
@@ -224,6 +225,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E1B61DB8221BFF4E00BD0856 /* Update Version Info */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Update Version Info";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "/usr/bin/which -s git-xcode-tag && git xcode-tag";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E105EAE121F3F53000866782 /* Sources */ = {
