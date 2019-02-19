@@ -13,6 +13,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 const CGFloat SIZE = 10.0;
 
+@interface NSCursor ()
+
+// TODO: Avoid using a private API; create custom resize cursors.
+
+@property (nonatomic, readonly, class) NSCursor *_windowResizeEastWestCursor;
+@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthEastSouthWestCursor;
+@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthSouthCursor;
+@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthWestSouthEastCursor;
+
+@end
+
 @interface RERegionView ()
 
 @property (nonatomic, nonnull) NSTextField *label;
@@ -99,6 +110,15 @@ const CGFloat SIZE = 10.0;
         dragHandle[5].dragAction = REDragMinX | REDragMaxY;
         dragHandle[6].dragAction = REDragMinX;
         dragHandle[7].dragAction = REDragMinX | REDragMinY;
+
+        dragHandle[0].cursor = [NSCursor _windowResizeNorthSouthCursor];
+        dragHandle[1].cursor = [NSCursor _windowResizeNorthEastSouthWestCursor];
+        dragHandle[2].cursor = [NSCursor _windowResizeEastWestCursor];
+        dragHandle[3].cursor = [NSCursor _windowResizeNorthWestSouthEastCursor];
+        dragHandle[4].cursor = [NSCursor _windowResizeNorthSouthCursor];
+        dragHandle[5].cursor = [NSCursor _windowResizeNorthEastSouthWestCursor];
+        dragHandle[6].cursor = [NSCursor _windowResizeEastWestCursor];
+        dragHandle[7].cursor = [NSCursor _windowResizeNorthWestSouthEastCursor];
     }
     return self;
 }

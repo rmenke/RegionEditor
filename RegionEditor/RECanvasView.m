@@ -8,15 +8,11 @@
 
 #import "RECanvasView.h"
 #import "RERegionView.h"
+#import "REGuideController.h"
 
 @import QuartzCore;
 
 NS_ASSUME_NONNULL_BEGIN
-
-static inline CGPoint CGPointMakeFromLocation(NSView *view, NSEvent *event) {
-    NSPoint p = [view convertPoint:event.locationInWindow fromView:nil];
-    return CGPointMake(round(p.x), round(p.y));
-}
 
 @interface RECanvasView ()
 
@@ -99,7 +95,16 @@ static inline CGPoint CGPointMakeFromLocation(NSView *view, NSEvent *event) {
 }
 
 - (void)mouseDown:(NSEvent *)event {
-    CGRect r = { .origin = CGPointMakeFromLocation(self, event), .size = CGSizeZero };
+    REGuideController *guideController =
+        [[REGuideController alloc] initWithView:self addHorizontalGuides:YES addVerticalGuides:YES excludingSubview:nil];
+
+    // Cannot use NSRect because it has problems with negative widths/heights.
+    // CoreGraphics is fine with them, and it makes keeping track of the origin point easy.
+    CGRect r = { .origin = NSPointToCGPoint([self convertPoint:event.locationInWindow fromView:nil]), .size = CGSizeZero };
+
+    if (~event.modifierFlags & NSEventModifierFlagOption) {
+        r.origin = [guideController snapToGuides:r.origin];
+    }
 
     CAShapeLayer *layer = [CAShapeLayer layer];
     layer.strokeColor = NSColor.redColor.CGColor;
@@ -107,20 +112,29 @@ static inline CGPoint CGPointMakeFromLocation(NSView *view, NSEvent *event) {
 
     [self.layer addSublayer:layer];
 
-    do {
-        event = [self.window nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask];
-        CGPoint b = CGPointMakeFromLocation(self, event);
+    CGRect bounds = NSRectToCGRect(self.bounds);
 
-        r.size = CGSizeMake(b.x - r.origin.x, b.y - r.origin.y);
+    do {
+        event = [self.window nextEventMatchingMask:NSEventMaskLeftMouseUp|NSEventMaskLeftMouseDragged];
+        NSPoint point = [self convertPoint:event.locationInWindow fromView:nil];
+
+        if (~event.modifierFlags & NSEventModifierFlagOption) {
+            point = [guideController snapToGuides:point];
+        }
+        else {
+            [guideController hideGuides];
+        }
+
+        r.size = CGSizeMake(point.x - r.origin.x, point.y - r.origin.y);
 
         if (event.type == NSEventTypeLeftMouseDragged) {
-            CGPathRef path = CGPathCreateWithRect(r, NULL);
+            CGPathRef path = CGPathCreateWithRect(CGRectIntersection(r, bounds), NULL);
             layer.path = path;
             CGPathRelease(path);
         }
     } while (event.type != NSEventTypeLeftMouseUp);
 
-    r = CGRectIntersection(CGRectIntegral(CGRectStandardize(r)), NSRectToCGRect(self.bounds));
+    r = CGRectIntegral(r);
 
     if (r.size.width >= 50 && r.size.height >= 50) {
         _rectValue = NSRectFromCGRect(r);

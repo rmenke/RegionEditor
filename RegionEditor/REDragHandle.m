@@ -8,34 +8,11 @@
 
 #import "REDragHandle.h"
 #import "RERegionView.h"
+#import "REGuideController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define REDragX (REDragMinX | REDragMaxX)
-#define REDragY (REDragMinY | REDragMaxY)
-
-@interface NSCursor ()
-
-// TODO: Avoid using a private API; create custom resize cursors.
-
-@property (nonatomic, readonly, class) NSCursor *_windowResizeEastCursor;
-@property (nonatomic, readonly, class) NSCursor *_windowResizeEastWestCursor;
-@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthCursor;
-@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthEastCursor;
-@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthEastSouthWestCursor;
-@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthSouthCursor;
-@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthWestCursor;
-@property (nonatomic, readonly, class) NSCursor *_windowResizeNorthWestSouthEastCursor;
-@property (nonatomic, readonly, class) NSCursor *_windowResizeSouthCursor;
-@property (nonatomic, readonly, class) NSCursor *_windowResizeSouthEastCursor;
-@property (nonatomic, readonly, class) NSCursor *_windowResizeSouthWestCursor;
-@property (nonatomic, readonly, class) NSCursor *_windowResizeWestCursor;
-
-@end
-
 @interface REDragHandle ()
-
-@property (nonatomic, nullable) NSCursor *cursor;
 
 @end
 
@@ -53,71 +30,58 @@ NS_ASSUME_NONNULL_BEGIN
     if (_cursor) [_cursor set];
 }
 
-- (void)mouseDragged:(NSEvent *)event {
+- (void)mouseDown:(NSEvent *)event {
     NSView *regionView = self.superview;
     NSView *canvasView = regionView.superview;
 
-    NSPoint p = [canvasView convertPoint:event.locationInWindow fromView:nil];
-    NSRect frame = regionView.frame;
+    BOOL dragMinX = _dragAction & REDragMinX;
+    BOOL dragMinY = _dragAction & REDragMinY;
+    BOOL dragMaxX = _dragAction & REDragMaxX;
+    BOOL dragMaxY = _dragAction & REDragMaxY;
 
-    CGFloat minX = NSMinX(frame);
-    CGFloat minY = NSMinY(frame);
-    CGFloat maxX = NSMaxX(frame);
-    CGFloat maxY = NSMaxY(frame);
+    REGuideController *guideController =
+        [[REGuideController alloc] initWithView:canvasView
+                            addHorizontalGuides:(dragMinY||dragMaxY)
+                              addVerticalGuides:(dragMinX||dragMaxX)
+                               excludingSubview:regionView];
 
-    if (self.dragAction & REDragMinX) {
-        frame.size.width = MAX(maxX - p.x, 50);
-        frame.origin.x = MIN(maxX - 50, p.x);
-    }
+    do {
+        event = [self.window nextEventMatchingMask:NSEventMaskLeftMouseUp|NSEventMaskLeftMouseDragged];
 
-    if (self.dragAction & REDragMinY) {
-        frame.size.height = MAX(maxY - p.y, 50);
-        frame.origin.y = MIN(maxY - 50, p.y);
-    }
+        if (event.type == NSEventTypeLeftMouseDragged) {
+            NSPoint point = [canvasView convertPoint:event.locationInWindow fromView:nil];
 
-    if (self.dragAction & REDragMaxX) {
-        frame.size.width = MAX(p.x - minX, 50);
-    }
+            if (~event.modifierFlags & NSEventModifierFlagOption) {
+                point = [guideController snapToGuides:point];
+            } else {
+                [guideController hideGuides];
+            }
 
-    if (self.dragAction & REDragMaxY) {
-        frame.size.height = MAX(p.y - minY, 50);
-    }
+            NSRect frame = regionView.frame;
 
-    regionView.frame = NSIntersectionRect(NSIntegralRect(frame), canvasView.bounds);
-}
+            CGFloat minX = NSMinX(frame);
+            CGFloat minY = NSMinY(frame);
+            CGFloat maxX = NSMaxX(frame);
+            CGFloat maxY = NSMaxY(frame);
 
-- (void)mouseUp:(NSEvent *)event {
+            if (dragMinX) {
+                minX = MIN(point.x, maxX - 50.0);
+            }
+            else if (dragMaxX) {
+                maxX = MAX(point.x, minX + 50.0);
+            }
+            if (dragMinY) {
+                minY = MIN(point.y, maxY - 50.0);
+            }
+            else if (dragMaxY) {
+                maxY = MAX(point.y, minY + 50.0);
+            }
+            
+            regionView.frame = NSIntersectionRect(NSIntegralRect(NSMakeRect(minX, minY, maxX - minX, maxY - minY)), canvasView.bounds);
+        }
+    } while (event.type != NSEventTypeLeftMouseUp);
+
     [NSApp sendAction:NSSelectorFromString(@"resize:") to:nil from:self.superview];
-}
-
-- (void)setDragAction:(REDragAction)dragAction {
-    _dragAction = dragAction;
-
-    if (dragAction & REDragMinX) {
-        if (dragAction & REDragMinY) {
-            _cursor = NSCursor._windowResizeNorthWestSouthEastCursor;
-        }
-        else if (dragAction & REDragMaxY) {
-            _cursor = NSCursor._windowResizeNorthEastSouthWestCursor;
-        }
-        else {
-            _cursor = NSCursor._windowResizeEastWestCursor;
-        }
-    }
-    else if (dragAction & REDragMaxX) {
-        if (dragAction & REDragMinY) {
-            _cursor = NSCursor._windowResizeNorthEastSouthWestCursor;
-        }
-        else if (dragAction & REDragMaxY) {
-            _cursor = NSCursor._windowResizeNorthWestSouthEastCursor;
-        }
-        else {
-            _cursor = NSCursor._windowResizeEastWestCursor;
-        }
-    }
-    else if (dragAction) {
-        _cursor = NSCursor._windowResizeNorthSouthCursor;
-    }
 }
 
 @end

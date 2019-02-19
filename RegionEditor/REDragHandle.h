@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface REDragHandle : NSView
 
 @property (nonatomic) REDragAction dragAction;
+@property (nonatomic, nullable) NSCursor *cursor;
 
 @end
 

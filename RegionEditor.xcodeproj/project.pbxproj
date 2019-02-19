@@ -15,6 +15,7 @@
 		E105EB0321F3F53100866782 /* RegionEditorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EB0221F3F53100866782 /* RegionEditorTests.m */; };
 		E105EB2021F41BAC00866782 /* RECanvasView.m in Sources */ = {isa = PBXBuildFile; fileRef = E105EB1F21F41BAB00866782 /* RECanvasView.m */; };
 		E11E59AD21F84E740072391C /* RERegionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E11E59AC21F84E740072391C /* RERegionView.m */; };
+		E15655842219FB1A003CD164 /* REGuideController.m in Sources */ = {isa = PBXBuildFile; fileRef = E15655832219FB1A003CD164 /* REGuideController.m */; };
 		E1F21A7721FE6308007AB058 /* REDragHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F21A7621FE6308007AB058 /* REDragHandle.m */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,8 @@
 		E105EB1F21F41BAB00866782 /* RECanvasView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECanvasView.m; sourceTree = "<group>"; };
 		E11E59AB21F84E740072391C /* RERegionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RERegionView.h; sourceTree = "<group>"; };
 		E11E59AC21F84E740072391C /* RERegionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RERegionView.m; sourceTree = "<group>"; };
+		E15655822219FB1A003CD164 /* REGuideController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REGuideController.h; sourceTree = "<group>"; };
+		E15655832219FB1A003CD164 /* REGuideController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REGuideController.m; sourceTree = "<group>"; };
 		E1F21A7521FE6308007AB058 /* REDragHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = REDragHandle.h; sourceTree = "<group>"; };
 		E1F21A7621FE6308007AB058 /* REDragHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = REDragHandle.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +101,8 @@
 				E11E59AC21F84E740072391C /* RERegionView.m */,
 				E1F21A7521FE6308007AB058 /* REDragHandle.h */,
 				E1F21A7621FE6308007AB058 /* REDragHandle.m */,
+				E15655822219FB1A003CD164 /* REGuideController.h */,
+				E15655832219FB1A003CD164 /* REGuideController.m */,
 				E105EAF421F3F53100866782 /* Assets.xcassets */,
 				E105EAF621F3F53100866782 /* MainMenu.xib */,
 				E105EAF921F3F53100866782 /* Info.plist */,
@@ -229,6 +234,7 @@
 				E105EAF021F3F53100866782 /* Document.m in Sources */,
 				E1F21A7721FE6308007AB058 /* REDragHandle.m in Sources */,
 				E105EAED21F3F53100866782 /* main.m in Sources */,
+				E15655842219FB1A003CD164 /* REGuideController.m in Sources */,
 				E105EAEA21F3F53100866782 /* AppDelegate.m in Sources */,
 				E11E59AD21F84E740072391C /* RERegionView.m in Sources */,
 			);
