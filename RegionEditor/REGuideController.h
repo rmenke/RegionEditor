@@ -8,6 +8,7 @@
 
 @import Foundation;
 
+@class NSEvent;
 @class NSView;
 @class CAShapeLayer;
 
@@ -21,9 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
            addVerticalGuides:(BOOL)vertical
             excludingSubview:(nullable NSView *)subview NS_DESIGNATED_INITIALIZER;
 
-- (NSPoint)snapToGuides:(NSPoint)point NS_SWIFT_NAME(snapToGuides(point:));
-
-- (void)hideGuides;
+- (NSPoint)snapToGuides:(NSPoint)point forEvent:(NSEvent *)event NS_SWIFT_NAME(snapToGuides(point:event:));
 
 @end
 

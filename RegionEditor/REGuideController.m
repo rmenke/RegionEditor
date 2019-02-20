@@ -15,6 +15,8 @@
 #define DIST(A, B) ({ __typeof(A) __a = (A); __typeof(B) __b = (B); __a > __b ? __a - __b : __b - __a; })
 #define CLAMP(X, LO, HI) MAX(LO, MIN(HI, X))
 
+#define IS_PRESSED(EVENT, KEY) ((BOOL)(!(~EVENT.modifierFlags & NSEventModifierFlag##KEY)))
+
 static NSUInteger snapToGuide(NSIndexSet *guides, NSUInteger value) {
     __block NSUInteger snap = NSNotFound;
 
@@ -36,6 +38,7 @@ static NSUInteger snapToGuide(NSIndexSet *guides, NSUInteger value) {
 
 @interface REGuideController ()
 
+@property (nonatomic, assign) BOOL enabled;
 @property (nonatomic, weak) CAShapeLayer *layer;
 
 @property (nonatomic, nullable) NSMutableIndexSet *horizontalGuides;
@@ -54,8 +57,10 @@ static NSUInteger snapToGuide(NSIndexSet *guides, NSUInteger value) {
     self = [super init];
 
     if (self) {
+        _enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"RESnapToGuides"];
+
         CAShapeLayer *layer = [CAShapeLayer layer];
-        
+
         layer.zPosition = 100.0;
         layer.lineWidth = 2.0;
         layer.lineDashPattern = @[@3, @5];
@@ -99,31 +104,35 @@ static NSUInteger snapToGuide(NSIndexSet *guides, NSUInteger value) {
     [_layer removeFromSuperlayer];
 }
 
-- (NSPoint)snapToGuides:(NSPoint)point {
+- (NSPoint)snapToGuides:(NSPoint)point forEvent:(NSEvent *)event {
     NSUInteger x = CLAMP(lround(point.x), NSMinX(_bounds), NSMaxX(_bounds));
     NSUInteger y = CLAMP(lround(point.y), NSMinY(_bounds), NSMaxY(_bounds));
 
-    CGMutablePathRef path = CGPathCreateMutable();
+    CGMutablePathRef path = NULL;
 
-    if (_verticalGuides) {
-        NSUInteger xSnap = snapToGuide(_verticalGuides, x);
+    if (_enabled != IS_PRESSED(event, Option)) {
+        path = CGPathCreateMutable();
 
-        if (xSnap != NSNotFound) {
-            x = xSnap;
+        if (_verticalGuides) {
+            NSUInteger xSnap = snapToGuide(_verticalGuides, x);
 
-            CGPathMoveToPoint(path, NULL, x, NSMinY(_bounds));
-            CGPathAddLineToPoint(path, NULL, x, NSMaxY(_bounds));
+            if (xSnap != NSNotFound) {
+                x = xSnap;
+
+                CGPathMoveToPoint(path, NULL, x, NSMinY(_bounds));
+                CGPathAddLineToPoint(path, NULL, x, NSMaxY(_bounds));
+            }
         }
-    }
 
-    if (_horizontalGuides) {
-        NSUInteger ySnap = snapToGuide(_horizontalGuides, y);
+        if (_horizontalGuides) {
+            NSUInteger ySnap = snapToGuide(_horizontalGuides, y);
 
-        if (ySnap != NSNotFound) {
-            y = ySnap;
+            if (ySnap != NSNotFound) {
+                y = ySnap;
 
-            CGPathMoveToPoint(path, NULL, NSMinX(_bounds), y);
-            CGPathAddLineToPoint(path, NULL, NSMaxX(_bounds), y);
+                CGPathMoveToPoint(path, NULL, NSMinX(_bounds), y);
+                CGPathAddLineToPoint(path, NULL, NSMaxX(_bounds), y);
+            }
         }
     }
 
@@ -132,10 +141,6 @@ static NSUInteger snapToGuide(NSIndexSet *guides, NSUInteger value) {
     CGPathRelease(path);
 
     return NSMakePoint(x, y);
-}
-
-- (void)hideGuides {
-    _layer.path = nil;
 }
 
 @end

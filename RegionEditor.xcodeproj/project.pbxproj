@@ -239,7 +239,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "/usr/bin/which -s git-xcode-tag && git xcode-tag";
+			shellScript = "if [[ -x \"$(git --exec-path)/git-xcode-tag\" ]]; then\n    git xcode-tag\nelse\n    echo >&2 \"note: git-xcode-tag is not installed.\"\nfi";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

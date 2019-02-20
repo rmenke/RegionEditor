@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -26,7 +27,11 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW">
+                                <connections>
+                                    <action selector="makeKeyAndOrderFront:" target="FAq-Zd-3as" id="ooF-Kb-VkA"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                             <menuItem title="Services" id="NMo-om-nkz">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -191,5 +196,38 @@
                 </menuItem>
             </items>
         </menu>
+        <window title="Window" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="FAq-Zd-3as" customClass="NSPanel">
+            <windowStyleMask key="styleMask" titled="YES" closable="YES" utility="YES"/>
+            <windowCollectionBehavior key="collectionBehavior" ignoresCycle="YES"/>
+            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+            <rect key="contentRect" x="60" y="1038" width="276" height="52"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1177"/>
+            <view key="contentView" id="60S-c2-0LN">
+                <rect key="frame" x="0.0" y="0.0" width="276" height="52"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="IqW-PB-dX3">
+                        <rect key="frame" x="17" y="17" width="141" height="18"/>
+                        <buttonCell key="cell" type="check" title="Enable Snap to Guides" bezelStyle="regularSquare" imagePosition="left" controlSize="small" state="on" inset="2" id="x79-xO-fJt">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="smallSystem"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="6b9-Xd-RIo" name="value" keyPath="values.RESnapToGuides" id="UUu-zM-ePZ"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="IqW-PB-dX3" firstAttribute="leading" secondItem="60S-c2-0LN" secondAttribute="leading" constant="20" symbolic="YES" id="l8e-Z9-Jxs"/>
+                    <constraint firstItem="IqW-PB-dX3" firstAttribute="top" secondItem="60S-c2-0LN" secondAttribute="top" constant="20" symbolic="YES" id="qz9-RC-eJM"/>
+                </constraints>
+            </view>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="floatingPanel" value="YES"/>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="becomesKeyOnlyWhenNeeded" value="YES"/>
+            </userDefinedRuntimeAttributes>
+            <point key="canvasLocation" x="105" y="273"/>
+        </window>
+        <userDefaultsController representsSharedInstance="YES" id="6b9-Xd-RIo"/>
     </objects>
 </document>

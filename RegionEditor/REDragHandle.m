@@ -51,11 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (event.type == NSEventTypeLeftMouseDragged) {
             NSPoint point = [canvasView convertPoint:event.locationInWindow fromView:nil];
 
-            if (~event.modifierFlags & NSEventModifierFlagOption) {
-                point = [guideController snapToGuides:point];
-            } else {
-                [guideController hideGuides];
-            }
+            point = [guideController snapToGuides:point forEvent:event];
 
             NSRect frame = regionView.frame;
 
@@ -76,7 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
             else if (dragMaxY) {
                 maxY = MAX(point.y, minY + 50.0);
             }
-            
+
             regionView.frame = NSIntersectionRect(NSIntegralRect(NSMakeRect(minX, minY, maxX - minX, maxY - minY)), canvasView.bounds);
         }
     } while (event.type != NSEventTypeLeftMouseUp);

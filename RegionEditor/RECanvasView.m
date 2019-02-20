@@ -102,9 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
     // CoreGraphics is fine with them, and it makes keeping track of the origin point easy.
     CGRect r = { .origin = NSPointToCGPoint([self convertPoint:event.locationInWindow fromView:nil]), .size = CGSizeZero };
 
-    if (~event.modifierFlags & NSEventModifierFlagOption) {
-        r.origin = [guideController snapToGuides:r.origin];
-    }
+    r.origin = [guideController snapToGuides:r.origin forEvent:event];
 
     CAShapeLayer *layer = [CAShapeLayer layer];
     layer.strokeColor = NSColor.redColor.CGColor;
@@ -118,12 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
         event = [self.window nextEventMatchingMask:NSEventMaskLeftMouseUp|NSEventMaskLeftMouseDragged];
         NSPoint point = [self convertPoint:event.locationInWindow fromView:nil];
 
-        if (~event.modifierFlags & NSEventModifierFlagOption) {
-            point = [guideController snapToGuides:point];
-        }
-        else {
-            [guideController hideGuides];
-        }
+        point = [guideController snapToGuides:point forEvent:event];
 
         r.size = CGSizeMake(point.x - r.origin.x, point.y - r.origin.y);
 
