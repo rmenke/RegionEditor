@@ -224,7 +224,7 @@
             </view>
             <userDefinedRuntimeAttributes>
                 <userDefinedRuntimeAttribute type="boolean" keyPath="floatingPanel" value="YES"/>
-                <userDefinedRuntimeAttribute type="boolean" keyPath="becomesKeyOnlyWhenNeeded" value="YES"/>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="becomesKeyOnlyIfNeeded" value="YES"/>
             </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="105" y="273"/>
         </window>
