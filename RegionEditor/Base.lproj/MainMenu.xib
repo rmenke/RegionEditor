@@ -107,6 +107,12 @@
                                     <action selector="revertDocumentToSaved:" target="-1" id="iJ3-Pv-kwq"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Save as XML" id="gd0-IA-V3O">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <binding destination="G6q-YC-7Fk" name="value" keyPath="selection.saveAsXML" id="igl-xl-gIZ"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="aJh-i4-bef"/>
                             <menuItem title="Page Setup…" keyEquivalent="P" id="qIS-W8-SiK">
                                 <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
@@ -229,5 +235,10 @@
             <point key="canvasLocation" x="105" y="273"/>
         </window>
         <userDefaultsController representsSharedInstance="YES" id="6b9-Xd-RIo"/>
+        <objectController objectClassName="Document" id="G6q-YC-7Fk" userLabel="Document Controller">
+            <connections>
+                <binding destination="-2" name="contentObject" keyPath="mainWindow.windowController.document" id="nXb-Wm-ak6"/>
+            </connections>
+        </objectController>
     </objects>
 </document>

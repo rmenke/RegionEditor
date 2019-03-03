@@ -115,8 +115,12 @@ static NSPoint topLeft;
             return NO;
         }
 
-        id propertyList = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:NULL error:error];
+        NSPropertyListFormat format;
+
+        id propertyList = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:&format error:error];
         if (!propertyList) return NO;
+
+        _saveAsXML = (format == NSPropertyListXMLFormat_v1_0);
 
         @try {
             for (NSArray<NSNumber *> *region in propertyList) {
@@ -146,11 +150,17 @@ static NSPoint topLeft;
 
     for (NSValue *region in _regions) {
         NSRect rect = region.rectValue;
-        [propertyList addObject:@[@(NSMinX(rect)), @(NSMinY(rect)), @(NSWidth(rect)), @(NSHeight(rect))]];
+        NSUInteger x = NSMinX(rect);
+        NSUInteger y = NSMinY(rect);
+        NSUInteger w = NSWidth(rect);
+        NSUInteger h = NSHeight(rect);
+        [propertyList addObject:@[@(x), @(y), @(w), @(h)]];
     }
 
     if (propertyList.count) {
-        NSData *data = [NSPropertyListSerialization dataWithPropertyList:propertyList format:NSPropertyListBinaryFormat_v1_0 options:0 error:error];
+        NSPropertyListFormat format = _saveAsXML ? NSPropertyListXMLFormat_v1_0 : NSPropertyListBinaryFormat_v1_0;
+
+        NSData *data = [NSPropertyListSerialization dataWithPropertyList:propertyList format:format options:0 error:error];
         if (!data) return NO;
 
         if (setxattr(url.fileSystemRepresentation, REGION_XATTR_NAME, data.bytes, data.length, 0, 0) < 0) {
@@ -166,6 +176,19 @@ static NSPoint topLeft;
     }
 
     return YES;
+}
+
+- (void)setSaveAsXML:(BOOL)saveAsXML {
+    if (_saveAsXML != saveAsXML) {
+        [[self.undoManager prepareWithInvocationTarget:self] setSaveAsXML:_saveAsXML];
+        [self willChangeValueForKey:@"saveAsXML"];
+        _saveAsXML = saveAsXML;
+        [self didChangeValueForKey:@"saveAsXML"];
+    }
+}
+
++ (BOOL)automaticallyNotifiesObserversOfSaveAsXML {
+    return NO;
 }
 
 - (void)resizeRegionAtIndex:(NSUInteger)index toValue:(NSValue *)newValue {

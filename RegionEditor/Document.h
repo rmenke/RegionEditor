@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Document : NSDocument
 
+@property (nonatomic, assign) BOOL saveAsXML;
+
 @end
 
 NS_ASSUME_NONNULL_END
